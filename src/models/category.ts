@@ -1,6 +1,6 @@
 
 export default interface Category {
   id: number;
-  name: String;
+  name: string;
 }
 

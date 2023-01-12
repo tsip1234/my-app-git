@@ -2,7 +2,7 @@ import axios from "axios";
 import Lend from "../models/lend";
 
 export const API = axios.create({
-  baseURL: "http://localhost:8585/api/book"
+  baseURL: "http://localhost:8585/api/lend"
 });
 
 export const addLends = (newLend: Lend) => API.post("", newLend);

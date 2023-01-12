@@ -1,12 +1,12 @@
 
 export default interface User {
-  id: number;
-  tz: String;
-  password: String;
-  firstName: String;
-  lastName: String;
+  id?: number;
+  tz: string;
+  password: string;
+  firstName: string;
+  lastName: string;
   phoneNumber: string;
-  mail: String;
+  mail: string;
   status: number;
   creditCard: number;
 }

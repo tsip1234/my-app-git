@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import Category from "../../models/category";
 import { getALLCategory } from "../../services/category";
+import { RootState } from "../../app/store";
 
 //createAsyncThunk-middleware
 //בפרמטר ראשון טייפ ופרמטר השני פונקציה- ד"כ פרומיס

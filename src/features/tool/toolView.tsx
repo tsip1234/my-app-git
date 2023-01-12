@@ -7,57 +7,47 @@ import Tool from "../../models/tool";
 import { ToolComponent } from './toolComponent'
 import CategoryView from "../category/categoryView";
 import Category from "../../models/category";
+import { AppDispatch, RootState } from "../../app/store";
+import { getLends } from "../lend/lendSlice";
+import { Select, MenuItem, TextField } from "@mui/material";
+
+
 // import { Check } from "@mui/icons-material";
-//tmp
-const categories: Category[] = [
-  { id: 1, name: 'tools' },
-  { id: 2, name: 'not-tools' }
-]
-const tools: Tool[] = [
-  {
-    id: 1,
-    image: 'https://th.bing.com/th/id/OIP.vnQBDUUgkx2xrC-ohhUhVwHaHa?pid=ImgDet&rs=1',
-    manufacturingCompany: 'vizel',
-    description: 'hammer',
-    numOfTool: 5,
-    category: categories[0]
-  },
-  {
-    id: 2,
-    image: 'https://extremehowto.com/wp-content/uploads/2011/11/tools.jpg',
-    manufacturingCompany: 'marvel',
-    description: 'thor',
-    numOfTool: 5,
-    category: categories[1]
-  },
-  {
-    id: 3,
-    image: 'https://extremehowto.com/wp-content/uploads/2011/11/tools.jpg',
-    manufacturingCompany: 'marvel',
-    description: 'thor',
-    numOfTool: 5,
-    category: categories[1]
-  }
-]
-
-// tools.push(...tools, ...tools, ...tools)
-
-//end tmp
 export const ToolView = () => {
   const [curCategory, setCurCategory] = useState(-1)
+  const [curSearch, setCurSearch] = useState('')
+
+  const dispatch: AppDispatch = useDispatch();
+
+
+  useEffect(() => {
+    dispatch(getTools());
+  }, [])
+  const tools = useSelector((state: RootState) => state.toolSlice.tools)
+  const categories = useSelector((state: RootState) => state.categorySlice.categories)
+
   return (
-    <div style={{ display: 'flex' }}>
-      <div style={{ display: 'grid' }}>
-        <button onClick={() => setCurCategory(-1)}>All</button>
+    <div>
+      {/* <input type="text" /> */}
+      <TextField placeholder="Search" onChange={e => setCurSearch(e.target.value)}></TextField>
+      <Select defaultValue="All">
+
+        <MenuItem onClick={() => setCurCategory(-1)} value="All">All</MenuItem>
         {categories.map(category => {
-          return <button key={category.id} value={category.id} onClick={e => setCurCategory(category.id)}>{category.name}</button>
+          return <MenuItem key={category.id} value={category.id} onClick={e => setCurCategory(category.id)}>{category.name}</MenuItem>
         })}
-      </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}>
+
+      </Select>
+      <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
         {/* <CategoryView /> */}
-        {tools.filter(tool => curCategory === -1 || curCategory === tool.category.id).map(tool => {
-          return <ToolComponent key={tool.id} tool={tool} />
-        })}
+        {tools
+          // בודק קטגוריה
+          .filter(tool => curCategory === -1 || curCategory === tool.category.id)
+          // בודק חיפוש
+          .filter(tool => tool.name.toLowerCase().includes(curSearch.toLowerCase()))
+          .map(tool => {
+            return <ToolComponent key={tool.id} tool={tool} />
+          })}
       </div>
     </div>
   );

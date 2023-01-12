@@ -2,9 +2,10 @@ import Category from "./category";
 
 export default interface Tool {
   id: number;
-  numOfTool: number;
-  manufacturingCompany: String;
-  description: String;
+  quantity: number;
+  name: string;
+  manufacturingCompany: string;
+  description: string;
   image: string;
   category: Category;
 }

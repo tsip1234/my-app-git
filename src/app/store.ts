@@ -1,13 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
-import user from '../features/user/userSlice'
-import category from '../features/category/categorySlice'
-import toolReducer from '../features/tool/toolSlice'
+import userSlice from '../features/user/userSlice'
+import categorySlice from '../features/category/categorySlice'
+import toolSlice from '../features/tool/toolSlice'
+import lendSlice from '../features/lend/lendSlice'
 export const store = configureStore({
     reducer: {
-      user,
-      category,
-      toolReducer
-
+      userSlice,
+      categorySlice,
+      toolSlice,
+      lendSlice
     },
   })
  // Infer the `RootState` and `AppDispatch` types from the store itself

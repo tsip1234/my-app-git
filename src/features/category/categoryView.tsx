@@ -12,7 +12,7 @@ type CategoryProps = {
 
 const CategoryView = ({ setCategoryId }: CategoryProps) => {
   //categories מתקבל ע"י קרית שרת
-  const categories = useSelector((state: RootState) => state.category.categories);
+  const categories = useSelector((state: RootState) => state.categorySlice.categories);
   // const categories=store.getState().
   const dispatch: AppDispatch = useDispatch();
   useEffect(() => {

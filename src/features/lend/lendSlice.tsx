@@ -2,7 +2,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-import { getALLALend } from "../../services/lend";
+import { getALLALend, addLends } from "../../services/lend";
 import Lend from "../../models/lend";
 
 //createAsyncThunk-middleware
@@ -12,6 +12,13 @@ export const getLends = createAsyncThunk("lend/getLends", async () => {
   return data;
 });
 
+export const createOrUpdateLendRedux = createAsyncThunk(
+  "lend/create",
+  async (lend: Lend) => {
+      const { data } = await addLends(lend);
+      return data;
+  }
+)
 
 export interface lendState {
   lends: Array<Lend>,
